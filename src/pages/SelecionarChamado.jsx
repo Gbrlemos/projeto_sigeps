@@ -3,6 +3,12 @@ import { getChamados } from '../service/api';
 
 const SelecionarChamado = () => {
   const [chamados, setChamados] = useState([]);
+  const [novoChamado, setNovoChamado] = useState({
+    titulo_chamado: '',
+    descricao_chamado: '',
+    tipo_chamado: '',
+    status_chamado: 'Aberto', // Padrão "Aberto"
+  });
 
   useEffect(() => {
     const fetchChamados = async () => {
@@ -18,9 +24,71 @@ const SelecionarChamado = () => {
     fetchChamados();
   }, []);
 
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Previne o comportamento padrão do formulário
+    try {
+      const chamadoAdicionado = await addChamado(novoChamado); // Chama a API para adicionar
+      setChamados([...chamados, chamadoAdicionado]); // Atualiza a lista de chamados
+      setNovoChamado({ titulo_chamado: '', descricao_chamado: '', tipo_chamado: '', status_chamado: 'Aberto' }); // Limpa o formulário
+      console.log("Chamado adicionado:", chamadoAdicionado);
+    } catch (error) {
+      console.error("Erro ao adicionar chamado:", error);
+    }
+  };
+
+  // Função para lidar com mudanças nos campos do formulário
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setNovoChamado({ ...novoChamado, [name]: value });
+  };
+
+
   return (
     <div>
-      <h1>Selecionar Chamado</h1>
+      <h1>Abrir Novo Chamado</h1>
+            {/* Formulário para adicionar novo chamado */}
+            <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="titulo_chamado">Título:</label>
+          <input
+            type="text"
+            id="titulo_chamado"
+            name="titulo_chamado"
+            value={novoChamado.titulo_chamado}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="descricao_chamado">Descrição:</label>
+          <input
+            type="text"
+            id="descricao_chamado"
+            name="descricao_chamado"
+            value={novoChamado.descricao_chamado}
+            onChange={handleChange}
+            required
+          />
+        </div>
+        <div>
+          <label htmlFor="tipo_chamado">Tipo:</label>
+          <select
+            id="tipo_chamado"
+            name="tipo_chamado"
+            value={novoChamado.tipo_chamado}
+            onChange={handleChange}
+            required
+          >
+            <option value="Implantação">Implantação</option>
+            <option value="Teste">Teste</option>
+            <option value="Manutenção">Manutenção</option>
+          </select>
+        </div>
+        <div>
+          <button type="submit">Adicionar Chamado</button>
+        </div>
+      </form>
+      <h1>Chamados Abertos</h1>
       <table>
         <thead>
           <tr>
