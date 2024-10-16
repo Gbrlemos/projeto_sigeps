@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { addChamado, getChamados } from '../service/api'; // Verifique se está corretamente importado
+import React, { useState, useEffect } from 'react';
+import { addChamado, getChamados } from '../service/api'; // Certifique-se de que getSistemas está corretamente importado
 
 const SelecionarChamado = () => {
   const [chamados, setChamados] = useState([]);
@@ -10,6 +10,7 @@ const SelecionarChamado = () => {
     descricao_chamado: '',
     tipo_chamado: '',  // Combobox para tipo de chamado
     status_chamado: 'Aberto', // Status padrão definido como "Aberto"
+    id_sistema: '' // Adicionando o id_sistema
   });
 
   // Função para buscar chamados da API
@@ -24,7 +25,7 @@ const SelecionarChamado = () => {
       }
     };
 
-    fetchChamados();
+    fetchChamados(); // Apenas buscando os chamados
   }, []);
 
   // Função para lidar com o envio do formulário
@@ -33,7 +34,7 @@ const SelecionarChamado = () => {
     try {
       const chamadoAdicionado = await addChamado(novoChamado); // Chama a API para adicionar o chamado
       setChamados([...chamados, chamadoAdicionado]); // Atualiza a lista de chamados
-      setNovoChamado({ titulo_chamado: '', descricao_chamado: '', tipo_chamado: '', status_chamado: 'Aberto' }); // Limpa o formulário
+      setNovoChamado({ titulo_chamado: '', descricao_chamado: '', tipo_chamado: '', status_chamado: 'Aberto', id_sistema: '' }); // Limpa o formulário
       console.log("Chamado adicionado:", chamadoAdicionado);
     } catch (error) {
       console.error("Erro ao adicionar chamado:", error);
@@ -82,11 +83,22 @@ const SelecionarChamado = () => {
             onChange={handleChange}
             required
           >
-            <option value="" disabled>Selecione um tipo</option> {/* <-- Adicionado opção de placeholder */}
+            <option value="" disabled>Selecione um tipo</option>
             <option value="Implantação">Implantação</option>
             <option value="Teste">Teste</option>
             <option value="Manutenção">Manutenção</option>
           </select>
+        </div>
+        <div>
+          <label htmlFor="id_sistema">ID do Sistema:</label>
+          <input
+            type="text" // Usando um campo de texto para permitir que o usuário digite o ID do sistema
+            id="id_sistema"
+            name="id_sistema"
+            value={novoChamado.id_sistema}
+            onChange={handleChange}
+            required
+          />
         </div>
         <div>
           <button type="submit">Adicionar Chamado</button>
@@ -97,7 +109,7 @@ const SelecionarChamado = () => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
+            
             <th>Título</th>
             <th>Status</th>
             <th>Descrição</th>
@@ -107,8 +119,8 @@ const SelecionarChamado = () => {
         <tbody>
           {chamados.length > 0 ? (
             chamados.map((chamado) => (
-              <tr key={chamado.id_chamado}>
-                <td>{chamado.id_chamado}</td>
+              <tr key={chamado.id_chamado}> {/* Aqui está a correção */}
+                
                 <td>{chamado.titulo_chamado}</td>
                 <td>{chamado.status_chamado}</td>
                 <td>{chamado.descricao_chamado}</td>
