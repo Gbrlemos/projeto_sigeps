@@ -6,7 +6,6 @@ const CadastrarSistema = () => {
   const [novoSistema, setNovoSistema] = useState({
     nome_sistema: '',
     tipo_sistema: '',
-    versao_sistema: '1.0', // Versão padrão inicial
   });
 
   // Função para lidar com o envio do formulário
