@@ -17,21 +17,35 @@ const CriarPlano = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
+    // Cria o objeto do plano sem atividades ainda
     const novoPlano = {
       nome_plano: nomePlano,
       descricao_plano: descricaoPlano,
       data_inicio: dataInicio,
       data_fim: dataFim,
       status_plano: statusPlano,
-      atividades,
     };
+  
     try {
-      await addPlano(novoPlano);
-      alert('Plano criado com sucesso!');
-      navigate('/planos');
+      // Passo 1: Cria o plano no banco e obtém o id gerado
+      const planoCriado = await addPlano(novoPlano); // `addPlano` deve retornar o objeto com `id_plano`
+      const planoId = planoCriado.id_plano;
+  
+      // Passo 2: Associa o `id_plano` a cada atividade
+      const atividadesComIdPlano = atividades.map(atividade => ({
+        ...atividade,
+        id_plano: planoId
+      }));
+  
+      // Passo 3: Salva todas as atividades com o `id_plano` associado
+      await Promise.all(atividadesComIdPlano.map(addAtividade));
+  
+      alert('Plano e atividades criados com sucesso!');
+      navigate('/planos'); // Redireciona após a criação com sucesso
     } catch (error) {
-      console.error('Erro ao criar o plano:', error);
-      alert('Erro ao criar o plano.');
+      console.error('Erro ao criar o plano ou atividades:', error);
+      alert('Erro ao criar o plano ou atividades.');
     }
   };
 
@@ -42,9 +56,10 @@ const CriarPlano = () => {
 
   return (
     <div className="page-container">
+      
       {/* Div para criar novo plano */}
       <div className="page">
-        <h2>Criar Novo Plano</h2>
+        <h2>Dados do Plano</h2>
         <form onSubmit={handleSubmit}>
           <div>
             <label>Nome do Plano:</label>
@@ -83,26 +98,16 @@ const CriarPlano = () => {
               required
             />
           </div>
-          <div>
-            <label>Status:</label>
-            <select
-              value={statusPlano}
-              onChange={(e) => setStatusPlano(e.target.value)}
-              required
-            >
-              <option value="Ativo">Ativo</option>
-              <option value="Em progresso">Em progresso</option>
-              <option value="Concluído">Concluído</option>
-              <option value="Cancelado">Cancelado</option>
-            </select>
-          </div>
+          
           <button type="submit">Criar Plano</button>
         </form>
       </div>
 
       {/* Div para adicionar nova atividade */}
       <div className="page">
-        <h2>Adicionar Atividade</h2>
+      <h2>Adicionar Atividade</h2>
+      <form onSubmit={handleSubmit}>
+        
         <div>
           <label>Descrição da Atividade:</label>
           <input
@@ -133,6 +138,7 @@ const CriarPlano = () => {
           />
         </div>
         <button type="button" onClick={handleAddAtividade}>Adicionar Atividade</button>
+        </form>
       </div>
 
       {/* Div para lista de atividades */}

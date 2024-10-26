@@ -39,7 +39,7 @@ body {
 
 /* Estilo para cabeçalho */
 h1, h2, h3, h4 {
-  font-size: 3.2em;
+  font-size: 2.2em;
   line-height: 1.1;
   color: #ffffff;
   text-align: center;
@@ -213,8 +213,14 @@ tr:hover {
 /* Ajuste do layout das divs internas */
 .page {
   flex: 1;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+  height: 600px;
+  max-height: 600px;
+  overflow-y: auto;
   min-width: 280px;
-  max-width: 30%;
+  max-width: 300px;
   padding: 20px;
   background-color: #333;
   color: #f1f1f1;
@@ -222,7 +228,31 @@ tr:hover {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   box-sizing: border-box; /* Garante que padding não expanda a div */
-  overflow: hidden; /* Previne que conteúdo ultrapasse a div */
+
+  
+}
+
+.page form {
+  width: 200px;
+}
+
+/* Estilizando a barra de rolagem (funciona em WebKit: Chrome, Safari) */
+.page::-webkit-scrollbar {
+  width: 8px; /* Largura da barra de rolagem */
+}
+
+.page::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Cor do "fundo" da barra */
+}
+
+.page::-webkit-scrollbar-thumb {
+  background-color: #888; /* Cor da barra de rolagem */
+  border-radius: 10px; /* Arredondamento */
+  border: 2px solid #f1f1f1; /* Borda ao redor da barra */
+}
+
+.page::-webkit-scrollbar-thumb:hover {
+  background-color: #555; /* Cor ao passar o mouse */
 }
 
 /* Ajustes nos inputs para respeitar os limites das divs */
@@ -242,7 +272,7 @@ textarea {
 /* Botão */
 button {
   background-color: #646cff;
-  color: #fff;
+  color: rgb(0, 0, 0);
   padding: 0.6em 1.2em;
   border: none;
   border-radius: 8px;
