@@ -7,7 +7,7 @@
   font-weight: 400;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; /* Fundo escuro relaxante */
+  background-color: #242424;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,12 +17,12 @@
 /* Estilo para âncoras */
 a {
   font-weight: 500;
-  color: #646cff; /* Azul suave */
+  color: #646cff;
   text-decoration: inherit;
 }
 
 a:hover {
-  color: #535bf2; /* Azul mais forte ao passar o mouse */
+  color: #535bf2;
 }
 
 /* Estilização do corpo */
@@ -34,7 +34,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: #1a1a1a;
-  margin-top: 80px; /* Ajusta o espaço para o navbar fixo */
+  margin-top: 80px;
 }
 
 /* Estilo para cabeçalho */
@@ -66,9 +66,9 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%; /* Responsivo */
-  max-width: 400px; /* Limita a largura para centralização */
-  margin: 0 auto; /* Centraliza horizontalmente */
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
 }
 
 /* Estilo para rótulos de input */
@@ -200,36 +200,69 @@ tr:hover {
   text-decoration: underline;
 }
 
-/* Estilo para páginas lado a lado */
+/* Ajuste do container principal */
 .page-container {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap; /* Quebra em novas linhas se necessário */
-}
-
-.page {
-  width: 30%;
-  margin: 10px;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
   padding: 20px;
-  border: 1px solid #ccc;
-  background-color: #f9f9f9;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #1a1a1a;
 }
 
-h1 {
-  font-size: 24px;
+/* Ajuste do layout das divs internas */
+.page {
+  flex: 1;
+  min-width: 280px;
+  max-width: 30%;
+  padding: 20px;
+  background-color: #333;
+  color: #f1f1f1;
+  border: 1px solid #444;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  box-sizing: border-box; /* Garante que padding não expanda a div */
+  overflow: hidden; /* Previne que conteúdo ultrapasse a div */
 }
 
-/* Responsividade */
-@media (max-width: 600px) {
-  .container {
-    padding: 10px;
-  }
+/* Ajustes nos inputs para respeitar os limites das divs */
+input[type="text"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #444;
+  color: #f1f1f1;
+  border: 1px solid #555;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
 
+/* Botão */
+button {
+  background-color: #646cff;
+  color: #fff;
+  padding: 0.6em 1.2em;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%; /* Garante que o botão ocupe toda a largura */
+  box-sizing: border-box;
+}
+
+button:hover {
+  background-color: #535bf2;
+}
+
+/* Responsividade para garantir que as divs se ajustem em telas menores */
+@media (max-width: 800px) {
   .page {
-    width: 100%; /* Páginas ocupam largura total em dispositivos menores */
+    max-width: 100%;
   }
 }
+
 
 @media (prefers-color-scheme: light) {
   :root {
