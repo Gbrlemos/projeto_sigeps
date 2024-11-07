@@ -11,9 +11,21 @@ const CadastrarRecurso = () => {
   const [nomeRecurso, setNomeRecurso] = useState('');
   const [quantidadeRecurso, setQuantidadeRecurso] = useState('');
 
+  // Função para buscar os recursos do backend
+  const fetchRecursos = async () => {
+    try {
+        const data = await getRecursos();
+        setRecursos(data);
+        console.log("Recursos recebidos:", data);
+    } catch (error){
+        console.error("Erro ao buscar recursos", error);
+    }
+    };
+
   // Função para enviar o recurso ao backend
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
 
     const novoRecurso = {
       nome_recurso: nomeRecurso,
@@ -24,6 +36,7 @@ const CadastrarRecurso = () => {
       // Chama a função de API para salvar o recurso no backend
       await addRecurso(novoRecurso);
       alert('Recurso cadastrado com sucesso!');
+      fetchRecursos();
     } catch (error) {
       console.error('Erro ao cadastrar recurso:', error);
       alert('Erro ao cadastrar recurso.');
@@ -31,16 +44,6 @@ const CadastrarRecurso = () => {
   };
 
   useEffect(() => {
-    const fetchRecursos = async () => {
-        try {
-            const data = await getRecursos;
-            setRecursos(data);
-            console.log("Recursos recebidos:", data);
-        } catch (error){
-            console.error("Erro ao buscar recursos", error);
-        }
-    };
-
     fetchRecursos();
   }, []);
 
@@ -80,7 +83,7 @@ const CadastrarRecurso = () => {
                   </tr>
               </thead>
               <tbody>
-                {recursos.lenght > 0 ? (
+                {recursos.length > 0 ? (
                  recursos.map((recurso) => (
                          <tr key={recurso.id_recurso}>
                              <td>{recurso.nome_recurso}</td>
@@ -89,7 +92,7 @@ const CadastrarRecurso = () => {
                       ))
                ) : (
                     <tr>
-                    <td colSpan="5">Nenhum chamado encontrado.</td>
+                    <td colSpan="2">Nenhum chamado encontrado.</td>
                   </tr>
                   )}
               </tbody>

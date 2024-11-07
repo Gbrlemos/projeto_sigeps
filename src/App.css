@@ -146,6 +146,7 @@ li {
 
 /* Estilo para a tabela */
 table {
+  color: #000;
   width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
