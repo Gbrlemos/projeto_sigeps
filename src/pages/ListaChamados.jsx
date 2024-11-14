@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { getChamados } from '../service/api';
 import { useNavigate } from 'react-router-dom';
 
-const ChamadosAdm = () => {
+const ListaChamados = () => {
   const [chamados, setChamados] = useState([]);
   const navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const ChamadosAdm = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <h1>Chamados Abertos</h1>
       <table>
         <thead>
@@ -66,4 +66,4 @@ const ChamadosAdm = () => {
   );
 };
 
-export default ChamadosAdm;
+export default ListaChamados;

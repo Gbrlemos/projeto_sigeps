@@ -48,7 +48,7 @@ const CadastrarRecurso = () => {
   }, []);
 
   return (
-    <div>
+    <div className='container'>
         <div>
       <h2>Cadastrar Novo Recurso</h2>
       <form onSubmit={handleSubmit}>

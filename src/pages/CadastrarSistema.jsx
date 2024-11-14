@@ -30,7 +30,7 @@ const CadastrarSistema = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <h1>Cadastrar Novo Sistema</h1>
       {/* Formulário para adicionar novo sistema */}
       <form onSubmit={handleSubmit}>

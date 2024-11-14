@@ -5,13 +5,16 @@ const Navbar = () => {
     <div className="navbar">
       {/* Logo "Sigeps" no canto esquerdo */}
       <div className="logo">
-        Sigeps
+        <div className='logo'>
+        <img src="/images/SigepsIcon.png" alt="Sigeps Icon" className="navbar-icon" />
+          Sigeps
+        </div>
       </div>
       
       {/* Links de Login e Cadastrar no canto direito */}
       <div className="auth-buttons">
         <a href="/login">Login</a>
-        <a href="/cadastro">Cadastrar</a>
+        <a href="/cadastrarusuario">Cadastrar</a>
       </div>
     </div>
   );

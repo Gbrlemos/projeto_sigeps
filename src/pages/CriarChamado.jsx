@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { addChamado, getChamados } from '../service/api'; // Certifique-se de que getSistemas está corretamente importado
 
-const SelecionarChamado = () => {
+const CriarChamado = () => {
   const [chamados, setChamados] = useState([]);
   
   // Estado para armazenar o novo chamado
@@ -48,7 +48,7 @@ const SelecionarChamado = () => {
   };
 
   return (
-    <div>
+    <div className='container'>
       <h1>Abrir Novo Chamado</h1>
       {/* Formulário para adicionar novo chamado */}
       <form onSubmit={handleSubmit}>
@@ -138,4 +138,4 @@ const SelecionarChamado = () => {
   );
 };
 
-export default SelecionarChamado;
+export default CriarChamado;

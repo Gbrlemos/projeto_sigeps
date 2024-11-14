@@ -93,7 +93,7 @@ const CriarPlano = () => {
 
   return (
     <div className="page-container">
-      <div className="page">
+      <div className="sidetoside">
         <h2>Dados do Plano</h2>
         <form onSubmit={handleSubmit}>
           <div>
@@ -135,7 +135,7 @@ const CriarPlano = () => {
         </form>
       </div>
 
-      <div className="page">
+      <div className="sidetoside">
         <h2>Recursos Disponíveis</h2>
         <table>
           <thead>
@@ -173,7 +173,7 @@ const CriarPlano = () => {
         </table>
       </div>
 
-      <div className="page">
+      <div className="sidetoside">
         <h2>Adicionar Atividade</h2>
         <form onSubmit={(e) => e.preventDefault()}>
           <div>
@@ -214,7 +214,7 @@ const CriarPlano = () => {
           </button>
         </form>
               </div>
-              <div className='page'>
+              <div className='sidetoside'>
         <h3>Lista de Atividades</h3>
         <ul>
           {atividades.map((atividade, index) => (

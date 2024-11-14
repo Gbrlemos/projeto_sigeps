@@ -27,6 +27,10 @@ a:hover {
 
 /* Estilização do corpo */
 body {
+  background-image: url('../images/SigepsBackground.png');
+  background-size: cover; /* Para cobrir toda a tela */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Impede a repetição da imagem */
   margin: 0;
   width: 100%;
   justify-content: center;
@@ -35,7 +39,23 @@ body {
   min-height: 100vh;
   background-color: #1a1a1a;
   margin-top: 80px;
+  z-index: 0;
 }
+
+body::after {
+  content: ''; /* Cria um pseudo-elemento */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 255, 0.25); /* Azul com 50% de transparência */
+  background-size: cover; /* Para cobrir toda a tela */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Impede a repetição da imagem */
+  z-index: 0; /* Garante que o overlay fique sobre a imagem */
+}
+
 
 /* Estilo para cabeçalho */
 h1, h2, h3, h4 {
@@ -52,13 +72,16 @@ h1, h2, h3, h4 {
   align-items: center;
   width: 100%;
   padding: 20px;
+  padding-top: 100px;
   background-color: #1a1a1a;
   border-radius: 12px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  z-index: 3;
 }
 
 /* Estilo para formulários */
 form {
+  display: flex;
   background-color: #242424;
   padding: 20px;
   border-radius: 10px;
@@ -67,7 +90,7 @@ form {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 300px;
   margin: 0 auto;
 }
 
@@ -178,6 +201,22 @@ tr:hover {
   z-index: 1000;
 }
 
+.navbar .logo {
+  font-size: 30px;  /* Ajuste o tamanho para o desejado */
+  font-weight: bold; /* Deixa o nome mais destacado */
+  cursor: pointer; /* Mostra o cursor como uma mãozinha */
+  line-height: 1; /* Garante que a altura da linha não aumente o navbar */
+  margin: 0; /* Remove margens adicionais */
+  padding-bottom: 5px; /* Remove qualquer preenchimento extra */
+}
+
+.navbar-icon {
+  width: 35px;  /* Ajuste o tamanho do ícone conforme necessário */
+  height: auto;
+  margin-right: 10px;  /* Espaço entre o ícone e o texto */
+}
+
+
 /* Itens da navbar organizados */
 .navbar-list {
   display: flex;
@@ -209,10 +248,11 @@ tr:hover {
   flex-wrap: wrap;
   padding: 20px;
   background-color: #1a1a1a;
+  z-index: 5;
 }
 
 /* Ajuste do layout das divs internas */
-.page {
+.sidetoside {
   flex: 1;
   flex-direction: column;
   align-items: center;
@@ -233,26 +273,26 @@ tr:hover {
   
 }
 
-.page form {
+.sidetoside form {
   width: 200px;
 }
 
 /* Estilizando a barra de rolagem (funciona em WebKit: Chrome, Safari) */
-.page::-webkit-scrollbar {
+.sidetoside::-webkit-scrollbar {
   width: 8px; /* Largura da barra de rolagem */
 }
 
-.page::-webkit-scrollbar-track {
+.sidetoside::-webkit-scrollbar-track {
   background: #f1f1f1; /* Cor do "fundo" da barra */
 }
 
-.page::-webkit-scrollbar-thumb {
+.sidetoside::-webkit-scrollbar-thumb {
   background-color: #888; /* Cor da barra de rolagem */
   border-radius: 10px; /* Arredondamento */
   border: 2px solid #f1f1f1; /* Borda ao redor da barra */
 }
 
-.page::-webkit-scrollbar-thumb:hover {
+.sidetoside::-webkit-scrollbar-thumb:hover {
   background-color: #555; /* Cor ao passar o mouse */
 }
 
@@ -289,7 +329,7 @@ button:hover {
 
 /* Responsividade para garantir que as divs se ajustem em telas menores */
 @media (max-width: 800px) {
-  .page {
+  .sidetoside {
     max-width: 100%;
   }
 }
@@ -313,13 +353,17 @@ button:hover {
 /* Estilo do Navbar */
 .navbar {
   display: flex;
+  font-weight: 700;  /* Deixa a fonte mais espessa */
+  gap: 8px; /* Espaçamento entre o ícone e o texto */
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif; /* Altera para uma fonte moderna */
   justify-content: space-between; /* Alinha os itens à esquerda e à direita */
   align-items: center; /* Alinha os itens verticalmente no centro */
   background-color: #333; /* Cor de fundo */
   padding: 10px 20px; /* Espaçamento interno */
   color: white; /* Cor do texto */
-  font-size: 18px; /* Tamanho do texto */
-  z-index: 10; /* Garante que o Navbar fique acima de outros elementos */
+  font-size: 24px; /* Tamanho do texto */
+  z-index: 11; /* Garante que o Navbar fique acima de outros elementos */
   position: fixed; /* Para que o z-index funcione */
   top: 0;
   left: 0;
@@ -327,21 +371,35 @@ button:hover {
 
 /* Estilo para o nome "Sigeps" */
 .navbar .logo {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Espaço entre o ícone e o texto */
+  background-color: #007bff; /* Cor de fundo azul */
+  padding: 8px 16px; /* Espaçamento interno para tornar o quadrado proporcional */
+  border-radius: 8px; /* Suaviza os cantos, ajuste para o formato desejado */
+  color: #333; /* Texto em branco para contraste */
+  font-family: 'Montserrat', sans-serif; /* Fonte moderna */
   font-size: 24px; /* Tamanho do texto */
   font-weight: bold; /* Deixa o nome mais destacado */
   cursor: pointer; /* Mostra o cursor como uma mãozinha */
 }
 
+.navbar-logo img {
+  width: 24px; /* Ajuste o tamanho do ícone */
+  height: 24px;
+}
+
 /* Estilo para os botões de Login e Cadastrar */
 .navbar .auth-buttons {
+  font-size: 15px;
   display: flex;
-  gap: 20px; /* Espaçamento entre os botões */
+  gap: 5px; /* Espaçamento entre os botões */
 }
 
 .navbar .auth-buttons a {
   color: white; /* Cor do texto */
   text-decoration: none; /* Remove o sublinhado */
-  padding: 8px 15px; /* Espaçamento interno */
+  padding: 8px 5px; /* Espaçamento interno */
   border: 1px solid transparent; /* Sem borda inicialmente */
   border-radius: 5px; /* Bordas arredondadas */
   transition: background-color 0.3s ease, color 0.3s ease;
@@ -355,19 +413,20 @@ button:hover {
 
 /* Sidebar estará sempre à esquerda */
 .sidebar {
-  height: 100vh; /* Full height */
+  height: 200px; /* Full height */
   width: 60px; /* Inicialmente com largura pequena */
   position: fixed; /* Fixo à esquerda */
-  top: 0;
+  top: 50%;
   left: 0;
   background-color: #333; /* Cor de fundo */
   padding-top: 20px;
   padding-bottom: 20px; /* Espaço embaixo também */
   display: flex;
+  border-radius: 0 8px 8px 0; /* Borda arredondada à direita */
   flex-direction: column; /* Empilha os itens verticalmente */
   justify-content: center; /* Centraliza verticalmente */
   transition: width 0.3s ease-in-out; /* Suaviza a animação de expansão */
-  z-index: 1; /* Para garantir que o menu fique acima do conteúdo */
+  z-index: 10; /* Para garantir que o menu fique acima do conteúdo */
 }
 
 /* Estilo para os botões dentro da sidebar */

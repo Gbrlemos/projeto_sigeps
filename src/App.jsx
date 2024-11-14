@@ -3,25 +3,27 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 import Navbar from './pages/Navbar';
 import Login from './pages/Login'; // Atualizado
-import SelecionarChamado from './pages/SelecionarChamado'; // Atualizado
+import CriarChamado from './pages/CriarChamado'; // Atualizado
 import CadastrarSistema from './pages/CadastrarSistema';
 import CriarPlano from './pages/CriarPlano';
 import CadastrarRecurso from './pages/CadastrarRecurso';
-import ChamadosAdm from './pages/ChamadosAdm';
+import ListaChamados from './pages/ListaChamados';
 import Sidebar from './pages/Sidebar';
+import CadastrarUsuario from './pages/CadastrarUsuario';
 
 const App = () => {
   return (
-    <div>
+   
+    
+    <div className='container'>
+    <Router>
     <Navbar />
     <Sidebar />
-    <div>
-    <Router>
-     
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/selecionarchamado" element={<SelecionarChamado />} />
-        <Route path="/chamadosadm" element={<ChamadosAdm />} />
+        <Route path="/cadastrarusuario" element={<CadastrarUsuario />} />
+        <Route path="/criarchamado" element={<CriarChamado />} />
+        <Route path="/listachamados" element={<ListaChamados />} />
         <Route path="/cadastrarsistema" element={<CadastrarSistema />} />
         <Route path="/criarplano" element={<CriarPlano />} />
         <Route path="/cadastrarrecurso" element={<CadastrarRecurso />} />
@@ -29,7 +31,7 @@ const App = () => {
       </Routes>
     </Router>
     </div>
-    </div>
+    
   );
 };
 
