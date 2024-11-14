@@ -309,3 +309,108 @@ button:hover {
     background-color: #f9f9f9;
   }
 }
+
+/* Estilo do Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Alinha os itens à esquerda e à direita */
+  align-items: center; /* Alinha os itens verticalmente no centro */
+  background-color: #333; /* Cor de fundo */
+  padding: 10px 20px; /* Espaçamento interno */
+  color: white; /* Cor do texto */
+  font-size: 18px; /* Tamanho do texto */
+  z-index: 10; /* Garante que o Navbar fique acima de outros elementos */
+  position: fixed; /* Para que o z-index funcione */
+  top: 0;
+  left: 0;
+}
+
+/* Estilo para o nome "Sigeps" */
+.navbar .logo {
+  font-size: 24px; /* Tamanho do texto */
+  font-weight: bold; /* Deixa o nome mais destacado */
+  cursor: pointer; /* Mostra o cursor como uma mãozinha */
+}
+
+/* Estilo para os botões de Login e Cadastrar */
+.navbar .auth-buttons {
+  display: flex;
+  gap: 20px; /* Espaçamento entre os botões */
+}
+
+.navbar .auth-buttons a {
+  color: white; /* Cor do texto */
+  text-decoration: none; /* Remove o sublinhado */
+  padding: 8px 15px; /* Espaçamento interno */
+  border: 1px solid transparent; /* Sem borda inicialmente */
+  border-radius: 5px; /* Bordas arredondadas */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Efeito de hover nos botões */
+.navbar .auth-buttons a:hover {
+  background-color: #444; /* Cor de fundo ao passar o mouse */
+  color: #ddd; /* Cor do texto ao passar o mouse */
+}
+
+/* Sidebar estará sempre à esquerda */
+.sidebar {
+  height: 100vh; /* Full height */
+  width: 60px; /* Inicialmente com largura pequena */
+  position: fixed; /* Fixo à esquerda */
+  top: 0;
+  left: 0;
+  background-color: #333; /* Cor de fundo */
+  padding-top: 20px;
+  padding-bottom: 20px; /* Espaço embaixo também */
+  display: flex;
+  flex-direction: column; /* Empilha os itens verticalmente */
+  justify-content: center; /* Centraliza verticalmente */
+  transition: width 0.3s ease-in-out; /* Suaviza a animação de expansão */
+  z-index: 1; /* Para garantir que o menu fique acima do conteúdo */
+}
+
+/* Estilo para os botões dentro da sidebar */
+.sidebar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 100%; /* O botão ocupa toda a largura da sidebar */
+  height: 50px; /* Altura dos botões */
+  border: none;
+  background: none;
+  color: white;
+  font-size: 20px; /* Tamanho do ícone */
+  cursor: pointer;
+  transition: background-color 0.3s, width 0.3s; /* Transição suave */
+  text-align: center;
+}
+
+/* Estilo ao passar o mouse (hover) */
+.sidebar-btn:hover {
+  background-color: #444; /* Cor ao passar o mouse */
+  width: 200px; /* Expandir ao passar o mouse */
+}
+
+/* Mostrar o texto ao lado ao passar o mouse */
+.sidebar-btn span {
+  display: none; /* Inicialmente o nome não aparece */
+  margin-left: 10px; /* Espaço entre o ícone e o nome */
+}
+
+.sidebar-btn:hover span {
+  display: inline-block; /* Exibe o nome ao passar o mouse */
+  font-size: 16px; /* Tamanho do texto */
+}
+
+/* Adicionando uma margem ao conteúdo principal para que ele não fique sob a sidebar */
+.content {
+  margin-left: 60px; /* Ajuste inicial da margem para acomodar a sidebar */
+  transition: margin-left 0.3s;
+}
+
+.sidebar .sidebar-btn i {
+  font-size: 24px; /* Ajustando o tamanho dos ícones */
+}
+
