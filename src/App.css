@@ -12,6 +12,11 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  flex: 1;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 /* Estilo para âncoras */
@@ -30,6 +35,7 @@ body {
   background-image: url('../images/SigepsBackground.png');
   background-size: cover; /* Para cobrir toda a tela */
   background-position: center; /* Centraliza a imagem */
+  background-attachment: fixed;
   background-repeat: no-repeat; /* Impede a repetição da imagem */
   margin: 0;
   width: 100%;
@@ -37,9 +43,15 @@ body {
   align-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #1a1a1a;
-  margin-top: 80px;
   z-index: 0;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 body::after {
@@ -47,13 +59,12 @@ body::after {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 255, 0.25); /* Azul com 50% de transparência */
-  background-size: cover; /* Para cobrir toda a tela */
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0));  background-size: cover; /* Para cobrir toda a tela */
   background-position: center; /* Centraliza a imagem */
   background-repeat: no-repeat; /* Impede a repetição da imagem */
-  z-index: 0; /* Garante que o overlay fique sobre a imagem */
+  z-index: -1; /* Garante que o overlay fique sobre a imagem */
 }
 
 
@@ -65,18 +76,48 @@ h1, h2, h3, h4 {
   text-align: center;
 }
 
-/* Estilização do contêiner principal */
+/* Estilo base para o app */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Altura da viewport */
+  padding: 60px;
+}
+
+.app-body {
+  height: 100vh;
+  display: flex;
+  flex: 1;
+}
+
+/* Para o App.jsx */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  min-height: 100vh; /* Garante que ocupe toda a altura da viewport */
+  padding: 0; /* Remove o padding que causava espaçamento indesejado */
+  padding-top: 50px;
+  flex-grow: 1;
+}
+
+
+/* Para os componentes individuais */
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   padding: 20px;
-  padding-top: 100px;
   background-color: #1a1a1a;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 2px 20px rgba(20, 1, 2, 0.5);
   z-index: 3;
+  max-width: 100%;
+  height: auto;
+  padding-bottom: 40px;
+  flex-grow: 1;
 }
 
 /* Estilo para formulários */
@@ -85,7 +126,7 @@ form {
   background-color: #242424;
   padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 10px rgba(20, 1, 2, 0.5);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,6 +158,24 @@ select {
   transition: border 0.3s;
 }
 
+section {
+  width: 80%; /* 80% da largura da página */
+  height: 80vh; /* 80% da altura da página, usando unidade vh (viewport height) */
+  margin: 0 auto; /* Centraliza a seção horizontalmente */
+  padding: 20px; /* Espaçamento interno para o conteúdo da seção */
+  background-color: #f4f4f4; /* Cor de fundo, pode ser ajustada */
+  border-radius: 8px; /* Bordas arredondadas, pode ser ajustado */
+  box-sizing: border-box; /* Garante que o padding não afete a largura total */
+  overflow: auto; /* Garante que o conteúdo não ultrapasse a área da seção, com rolagem se necessário */
+}
+
+/* Estilização adicional para o conteúdo dentro da seção */
+section p {
+  font-size: 16px; /* Ajuste do tamanho da fonte do texto */
+  color: #333; /* Cor do texto */
+}
+
+
 /* Efeito ao focar nos campos de entrada */
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -133,6 +192,7 @@ button {
   padding: 0.6em 1.2em;
   border-radius: 8px;
   cursor: pointer;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.5);
   transition: border-color 0.25s, background-color 0.3s;
 }
 
@@ -202,18 +262,17 @@ tr:hover {
 }
 
 .navbar .logo {
-  font-size: 30px;  /* Ajuste o tamanho para o desejado */
+  font-size: 20px;  /* Ajuste o tamanho para o desejado */
   font-weight: bold; /* Deixa o nome mais destacado */
-  cursor: pointer; /* Mostra o cursor como uma mãozinha */
   line-height: 1; /* Garante que a altura da linha não aumente o navbar */
   margin: 0; /* Remove margens adicionais */
   padding-bottom: 5px; /* Remove qualquer preenchimento extra */
 }
 
 .navbar-icon {
-  width: 35px;  /* Ajuste o tamanho do ícone conforme necessário */
+  width: 30px;  /* Ajuste o tamanho do ícone conforme necessário */
   height: auto;
-  margin-right: 10px;  /* Espaço entre o ícone e o texto */
+  margin-right: 0px;  /* Espaço entre o ícone e o texto */
 }
 
 
@@ -247,6 +306,7 @@ tr:hover {
   gap: 20px;
   flex-wrap: wrap;
   padding: 20px;
+  box-shadow: 2px 2px 20px rgba(20, 1, 2, 0.5);
   background-color: #1a1a1a;
   z-index: 5;
 }
@@ -313,7 +373,7 @@ textarea {
 /* Botão */
 button {
   background-color: #646cff;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   padding: 0.6em 1.2em;
   border: none;
   border-radius: 8px;
@@ -373,9 +433,10 @@ button:hover {
 .navbar .logo {
   display: flex;
   align-items: center;
+  padding-top: 5px;
+  padding-right: 2px;
   gap: 8px; /* Espaço entre o ícone e o texto */
   background-color: #007bff; /* Cor de fundo azul */
-  padding: 8px 16px; /* Espaçamento interno para tornar o quadrado proporcional */
   border-radius: 8px; /* Suaviza os cantos, ajuste para o formato desejado */
   color: #333; /* Texto em branco para contraste */
   font-family: 'Montserrat', sans-serif; /* Fonte moderna */
@@ -394,6 +455,7 @@ button:hover {
   font-size: 15px;
   display: flex;
   gap: 5px; /* Espaçamento entre os botões */
+  padding-right: 40px;
 }
 
 .navbar .auth-buttons a {
@@ -412,6 +474,7 @@ button:hover {
 }
 
 /* Sidebar estará sempre à esquerda */
+/* Sidebar */
 .sidebar {
   height: 200px; /* Full height */
   width: 60px; /* Inicialmente com largura pequena */
@@ -429,15 +492,15 @@ button:hover {
   z-index: 10; /* Para garantir que o menu fique acima do conteúdo */
 }
 
-/* Estilo para os botões dentro da sidebar */
+/* Estilo para os links dentro da sidebar (antes eram botões) */
 .sidebar-btn {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  width: 100%; /* O botão ocupa toda a largura da sidebar */
-  height: 50px; /* Altura dos botões */
-  border: none;
+  width: 100%; /* O link ocupa toda a largura da sidebar */
+  height: 50px; /* Altura dos links */
+  text-decoration: none; /* Remove o sublinhado do link */
   background: none;
   color: white;
   font-size: 20px; /* Tamanho do ícone */
@@ -463,6 +526,7 @@ button:hover {
   font-size: 16px; /* Tamanho do texto */
 }
 
+
 /* Adicionando uma margem ao conteúdo principal para que ele não fique sob a sidebar */
 .content {
   margin-left: 60px; /* Ajuste inicial da margem para acomodar a sidebar */
@@ -471,5 +535,28 @@ button:hover {
 
 .sidebar .sidebar-btn i {
   font-size: 24px; /* Ajustando o tamanho dos ícones */
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto; /* Garante que o footer fique no fundo */
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.footer-bottom a {
+  color: #ccc; /* Cor do link */
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  color: #fff; /* Cor ao passar o mouse */
+  text-decoration: underline;
 }
 

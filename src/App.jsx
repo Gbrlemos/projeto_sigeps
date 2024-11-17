@@ -2,6 +2,9 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
 import Navbar from './pages/Navbar';
+import Footer from './pages/Footer';
+import Home from './pages/Home';
+import Developers from './pages/Developers';
 import Login from './pages/Login'; // Atualizado
 import CriarChamado from './pages/CriarChamado'; // Atualizado
 import CadastrarSistema from './pages/CadastrarSistema';
@@ -13,24 +16,29 @@ import CadastrarUsuario from './pages/CadastrarUsuario';
 
 const App = () => {
   return (
-   
-    
-    <div className='container'>
+   <div className='app-wrapper'>
     <Router>
-    <Navbar />
-    <Sidebar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/cadastrarusuario" element={<CadastrarUsuario />} />
-        <Route path="/criarchamado" element={<CriarChamado />} />
-        <Route path="/listachamados" element={<ListaChamados />} />
-        <Route path="/cadastrarsistema" element={<CadastrarSistema />} />
-        <Route path="/criarplano" element={<CriarPlano />} />
-        <Route path="/cadastrarrecurso" element={<CadastrarRecurso />} />
-        {/* Outras rotas aqui */}
-      </Routes>
-    </Router>
+      <Navbar />
+    <div className='app-body'>
+      <Sidebar />
+        <div className='app-container'>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/developers" element={<Developers />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/cadastrarusuario" element={<CadastrarUsuario />} />
+            <Route path="/criarchamado" element={<CriarChamado />} />
+            <Route path="/listachamados" element={<ListaChamados />} />
+            <Route path="/cadastrarsistema" element={<CadastrarSistema />} />
+            <Route path="/criarplano" element={<CriarPlano />} />
+            <Route path="/cadastrarrecurso" element={<CadastrarRecurso />} />
+            {/* Outras rotas aqui */}
+          </Routes>
+        </div>
     </div>
+    <Footer />
+    </Router>
+   </div>
     
   );
 };

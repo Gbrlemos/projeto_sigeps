@@ -94,86 +94,6 @@ const CriarPlano = () => {
   return (
     <div className="page-container">
       <div className="sidetoside">
-        <h2>Dados do Plano</h2>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Nome do Plano:</label>
-            <input
-              type="text"
-              value={nomePlano}
-              onChange={(e) => setNomePlano(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Descrição:</label>
-            <textarea
-              value={descricaoPlano}
-              onChange={(e) => setDescricaoPlano(e.target.value)}
-              required
-            />
-          </div>
-          <div>
-            <label>Data de Início:</label>
-            <DatePicker
-              selected={dataInicio}
-              onChange={(date) => setDataInicio(date)}
-              dateFormat="dd/MM/yyyy"
-              required
-            />
-          </div>
-          <div>
-            <label>Data de Fim:</label>
-            <DatePicker
-              selected={dataFim}
-              onChange={(date) => setDataFim(date)}
-              dateFormat="dd/MM/yyyy"
-              required
-            />
-          </div>
-          <button type="submit">Criar Plano</button>
-        </form>
-      </div>
-
-      <div className="sidetoside">
-        <h2>Recursos Disponíveis</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Quantidade Disponível</th>
-              <th>Quantidade a Reservar</th>
-            </tr>
-          </thead>
-          <tbody>
-            {recursos.length > 0 ? (
-              recursos.map((recurso, index) => (
-                <tr key={recurso.id_recurso}>
-                  <td>{recurso.nome_recurso}</td>
-                  <td>{recurso.quantidade_disponivel}</td>
-                  <td>
-                    <input
-                      type="number"
-                      min="0"
-                      max={recurso.quantidade_disponivel}
-                      value={recurso.quantidadeReservada}
-                      onChange={(e) =>
-                        handleRecursoSelecionado(index, Number(e.target.value))
-                      }
-                    />
-                  </td>
-                </tr>
-              ))
-            ) : (
-              <tr>
-                <td colSpan="3">Nenhum recurso encontrado.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      <div className="sidetoside">
         <h2>Adicionar Atividade</h2>
         <form onSubmit={(e) => e.preventDefault()}>
           <div>
@@ -225,6 +145,86 @@ const CriarPlano = () => {
             </li>
           ))}
         </ul>
+      </div>
+
+      <div className="sidetoside">
+        <h2>Recursos Disponíveis</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Quantidade Disponível</th>
+              <th>Quantidade a Reservar</th>
+            </tr>
+          </thead>
+          <tbody>
+            {recursos.length > 0 ? (
+              recursos.map((recurso, index) => (
+                <tr key={recurso.id_recurso}>
+                  <td>{recurso.nome_recurso}</td>
+                  <td>{recurso.quantidade_disponivel}</td>
+                  <td>
+                    <input
+                      type="number"
+                      min="0"
+                      max={recurso.quantidade_disponivel}
+                      value={recurso.quantidadeReservada}
+                      onChange={(e) =>
+                        handleRecursoSelecionado(index, Number(e.target.value))
+                      }
+                    />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="3">Nenhum recurso encontrado.</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+
+      <div className="sidetoside">
+        <h2>Dados do Plano</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Nome do Plano:</label>
+            <input
+              type="text"
+              value={nomePlano}
+              onChange={(e) => setNomePlano(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Descrição:</label>
+            <textarea
+              value={descricaoPlano}
+              onChange={(e) => setDescricaoPlano(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Data de Início:</label>
+            <DatePicker
+              selected={dataInicio}
+              onChange={(date) => setDataInicio(date)}
+              dateFormat="dd/MM/yyyy"
+              required
+            />
+          </div>
+          <div>
+            <label>Data de Fim:</label>
+            <DatePicker
+              selected={dataFim}
+              onChange={(date) => setDataFim(date)}
+              dateFormat="dd/MM/yyyy"
+              required
+            />
+          </div>
+          <button type="submit">Criar Plano</button>
+        </form>
       </div>
     </div>
   );
