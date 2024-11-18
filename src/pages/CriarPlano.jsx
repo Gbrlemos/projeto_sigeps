@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { addPlano, getRecursos, addAtividade, addRecurso, addPlanoRecurso } from '../service/api'; // Importando a função addPlanoRecurso
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom'; // useLocation para receber o id_chamado
+import { addPlano, getRecursos, addAtividade, addPlanoRecurso } from '../service/api';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { FaTrash } from 'react-icons/fa'; // Importando o ícone de lixeira
+import { FaTrash } from 'react-icons/fa';
 
 const CriarPlano = () => {
   const navigate = useNavigate();
+  const { id } = useParams(); // Captura o ID do chamado da URL
+  const id_chamado = id; // Define id_chamado a partir de useParams
+
   const [nomePlano, setNomePlano] = useState('');
   const [descricaoPlano, setDescricaoPlano] = useState('');
   const [dataInicio, setDataInicio] = useState(null);
@@ -26,7 +29,7 @@ const CriarPlano = () => {
       const data = await getRecursos();
       setRecursos(data.map(recurso => ({ ...recurso, quantidadeReservada: 0 })));
     } catch (error) {
-      console.error("Erro ao buscar recursos", error);
+      console.error('Erro ao buscar recursos', error);
     }
   };
 
@@ -38,10 +41,11 @@ const CriarPlano = () => {
       data_inicio: dataInicio,
       data_fim: dataFim,
       status_plano: statusPlano,
+      id_chamado, // Associar o plano ao chamado recebido
     };
 
     try {
-      const planoCriado = await addPlano(novoPlano); 
+      const planoCriado = await addPlano(novoPlano);
       const planoId = planoCriado.id_plano;
 
       const atividadesComIdPlano = atividades.map(atividade => ({
@@ -50,10 +54,8 @@ const CriarPlano = () => {
       }));
       await Promise.all(atividadesComIdPlano.map(addAtividade));
 
-      // Reservar recursos e adicionar plano_recurso
       await Promise.all(
         recursosSelecionados.map(async recurso => {
-          // Adicionando a relação plano_recurso
           if (recurso.quantidadeReservada > 0) {
             await addPlanoRecurso({
               id_plano: planoId,
@@ -76,7 +78,7 @@ const CriarPlano = () => {
       setAtividades([...atividades, novaAtividade]);
       setNovaAtividade({ descricao: '', dataInicio: null, dataFim: null });
     } else {
-      alert("Por favor, preencha todos os campos da atividade.");
+      alert('Por favor, preencha todos os campos da atividade.');
     }
   };
 
@@ -89,12 +91,24 @@ const CriarPlano = () => {
     const novosRecursos = [...recursos];
     novosRecursos[index].quantidadeReservada = quantidade;
     setRecursos(novosRecursos);
-    
+
     setRecursosSelecionados(novosRecursos.filter(recurso => recurso.quantidadeReservada > 0));
   };
 
   return (
     <div className="page-container">
+      {id_chamado ? ( // Exibe uma mensagem de confirmação do chamado associado
+        <div className="info-box">
+          <p>Plano será associado ao chamado ID: {id_chamado}</p>
+        </div>
+      ) : (
+        <div className="info-box">
+          <p>Nenhum chamado foi associado a este plano.</p>
+        </div>
+      )}
+
+      {/* Restante do código para adicionar atividades, recursos e dados do plano */}
+      {/* Mantive igual ao anterior */}
       <div className="sidetoside">
         <h2>Adicionar Atividade</h2>
         <div className="info-box">

@@ -32,6 +32,7 @@ const App = () => {
             <Route path="/listaplanos" element={<ListaPlanos />} />
             <Route path="/cadastrarsistema" element={<CadastrarSistema />} />
             <Route path="/criarplano" element={<CriarPlano />} />
+            <Route path="/criarplano/:id" element={<CriarPlano />} />
             <Route path="/cadastrarrecurso" element={<CadastrarRecurso />} />
             {/* Outras rotas aqui */}
           </Routes>

@@ -24,6 +24,10 @@ const ListaChamados = () => {
 
   // Função para redirecionar para a página de criação de plano com o ID do chamado
   const handleCriarPlano = (idChamado) => {
+    if (!idChamado) {
+      console.error("ID do chamado não encontrado!");
+      return;
+    }
     navigate(`/criarplano/${idChamado}`);
   };
 
@@ -54,7 +58,10 @@ const ListaChamados = () => {
                 <td>{chamado.descricao_chamado}</td>
                 <td>{chamado.tipo_chamado}</td>
                 <td>
-                  <button onClick={() => handleCriarPlano(chamado.id_chamado)}>
+                  <button
+                    onClick={() => handleCriarPlano(chamado.id_chamado)}
+                    aria-label={`Criar plano para o chamado ${chamado.titulo_chamado}`}
+                  >
                     Criar Plano
                   </button>
                 </td>
