@@ -49,6 +49,10 @@ const CadastrarUsuario = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="nome">Nome</label>
+          <div className="info-box">
+            Nome completo, sem abreviações.
+          </div>
+
           <input
             type="text"
             id="nome"
@@ -59,6 +63,9 @@ const CadastrarUsuario = () => {
         </div>
         <div>
           <label htmlFor="cpf">CPF</label>
+          <div className="info-box">
+            O CPF não precisa de caracteres especiais, apenas números.
+          </div>
           <input
             type="text"
             id="cpf"
@@ -69,6 +76,9 @@ const CadastrarUsuario = () => {
         </div>
         <div>
           <label htmlFor="email">Email</label>
+          <div className="info-box">
+            Email principal para contato.
+          </div>
           <input
             type="email"
             id="email"
@@ -79,6 +89,9 @@ const CadastrarUsuario = () => {
         </div>
         <div>
           <label htmlFor="telefone">Telefone</label>
+          <div className="info-box">
+            DDD seguido do número, sem caracteres especiais.
+          </div>
           <input
             type="text"
             id="telefone"
@@ -89,6 +102,9 @@ const CadastrarUsuario = () => {
         </div>
         <div>
           <label htmlFor="login">Login</label>
+          <div className="info-box">
+            Login único, usado para acessar a conta.
+          </div>
           <input
             type="text"
             id="login"
@@ -99,6 +115,9 @@ const CadastrarUsuario = () => {
         </div>
         <div>
           <label htmlFor="senha">Senha</label>
+          <div className="info-box">
+            Senha livre para criação, sem necessidade de caracteres especiais.
+          </div>
           <input
             type="password"
             id="senha"
@@ -109,6 +128,9 @@ const CadastrarUsuario = () => {
         </div>
         <div>
           <label htmlFor="tipoUsuario">Tipo de Usuário</label>
+          <div className="info-box">
+            Que tipo de usuário se enquadra?
+          </div>
           <select
             id="tipoUsuario"
             value={tipoUsuario}

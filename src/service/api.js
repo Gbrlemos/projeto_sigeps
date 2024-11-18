@@ -88,3 +88,8 @@ export const getRecursos = () => getAll('recurso');
 export const addRecurso = (recurso) => add('recurso', recurso);
 export const updateRecurso = (idrecurso, recurso) => update('recurso', idrecurso, recurso);
 export const deleteRecurso = (idrecurso) => remove('recurso', idrecurso);
+
+export const getPlanoRecursos = () => getAll('plano_recurso');
+export const addPlanoRecurso = (plano_recurso) => add('plano_recurso', plano_recurso);
+export const updatePlanoRecurso = (idplano_recurso, plano_recurso) => update('plano_recurso', idplano_recurso, plano_recurso);
+export const deletePlanoRecurso = (idplano_recurso) => remove('plano_recurso', idplano_recurso);

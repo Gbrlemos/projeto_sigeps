@@ -65,6 +65,9 @@ const Login = () => {
         />
         
         <button type="submit">Entrar</button>
+        <div className="info-box">
+            Ainda não possui uma conta? Cadastre-se aqui.
+          </div>
       </form>
 
       {error && <p style={{ color: 'red' }}>{error}</p>} {/* Exibe erro caso haja */}

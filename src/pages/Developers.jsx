@@ -4,7 +4,7 @@ const Developers = () => {
   return (
     <div className="container">
       <h1>Sobre os Desenvolvedores</h1>
-      <section style={{ marginTop: '20px', textAlign: 'left', color: '#fff' }}>
+      <section>
         <h2>Sobre a Equipe</h2>
         <p>
           Somos uma equipe apaixonada por tecnologia, com foco em criar soluções
@@ -12,9 +12,6 @@ const Developers = () => {
           de facilitar a gestão de sistemas, promovendo integração e agilidade
           nos processos.
         </p>
-      </section>
-      
-      <section style={{ marginTop: '20px', textAlign: 'left', color: '#fff' }}>
         <h2>Sobre o Projeto</h2>
         <p>
           O sistema foi projetado para gerenciar chamados, testes, implantação e

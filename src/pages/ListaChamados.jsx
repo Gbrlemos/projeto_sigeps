@@ -29,7 +29,12 @@ const ListaChamados = () => {
 
   return (
     <div className='container'>
-      <h1>Chamados Abertos</h1>
+      <h1>Gerenciar Chamados</h1>
+      <div className='info-box'>
+        <h2 style={{ margin: 0 }}>Bem-vindo, Triagem!</h2>
+        <p>Esta é a área de chamados. Aqui você pode consultar os chamados abertos,
+           seus respectivos status, ou criar um plano de ação a partir de um chamado.</p>
+      </div>
       <table>
         <thead>
           <tr>

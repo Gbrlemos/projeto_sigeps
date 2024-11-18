@@ -3,14 +3,15 @@ import { addChamado, getChamados } from '../service/api'; // Certifique-se de qu
 
 const CriarChamado = () => {
   const [chamados, setChamados] = useState([]);
-  
+  const [exibirFormulario, setExibirFormulario] = useState(false); // Estado para controlar a exibição do formulário
+
   // Estado para armazenar o novo chamado
   const [novoChamado, setNovoChamado] = useState({
     titulo_chamado: '',
     descricao_chamado: '',
-    tipo_chamado: '',  // Combobox para tipo de chamado
+    tipo_chamado: '', // Combobox para tipo de chamado
     status_chamado: 'Aberto', // Status padrão definido como "Aberto"
-    id_sistema: '' // Adicionando o id_sistema
+    id_sistema: '', // Adicionando o id_sistema
   });
 
   // Função para buscar chamados da API
@@ -19,9 +20,9 @@ const CriarChamado = () => {
       try {
         const data = await getChamados();
         setChamados(data);
-        console.log("Chamados recebidos:", data);
+        console.log('Chamados recebidos:', data);
       } catch (error) {
-        console.error("Erro ao buscar chamados:", error);
+        console.error('Erro ao buscar chamados:', error);
       }
     };
 
@@ -35,81 +36,93 @@ const CriarChamado = () => {
       const chamadoAdicionado = await addChamado(novoChamado); // Chama a API para adicionar o chamado
       setChamados([...chamados, chamadoAdicionado]); // Atualiza a lista de chamados
       setNovoChamado({ titulo_chamado: '', descricao_chamado: '', tipo_chamado: '', status_chamado: 'Aberto', id_sistema: '' }); // Limpa o formulário
-      console.log("Chamado adicionado:", chamadoAdicionado);
+      setExibirFormulario(false); // Fecha o formulário após o envio
+      console.log('Chamado adicionado:', chamadoAdicionado);
     } catch (error) {
-      console.error("Erro ao adicionar chamado:", error);
+      console.error('Erro ao adicionar chamado:', error);
     }
   };
 
   // Função para lidar com mudanças nos campos do formulário
   const handleChange = (event) => {
-    const { name, value } = event.target; 
+    const { name, value } = event.target;
     setNovoChamado({ ...novoChamado, [name]: value });
   };
 
   return (
-    <div className='container'>
-      <h1>Abrir Novo Chamado</h1>
-      {/* Formulário para adicionar novo chamado */}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="titulo_chamado">Título:</label>
-          <input
-            type="text"
-            id="titulo_chamado"
-            name="titulo_chamado"
-            value={novoChamado.titulo_chamado}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="descricao_chamado">Descrição:</label>
-          <input
-            type="text"
-            id="descricao_chamado"
-            name="descricao_chamado"
-            value={novoChamado.descricao_chamado}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="tipo_chamado">Tipo:</label>
-          <select
-            id="tipo_chamado"
-            name="tipo_chamado"
-            value={novoChamado.tipo_chamado}
-            onChange={handleChange}
-            required
-          >
-            <option value="" disabled>Selecione um tipo</option>
-            <option value="Implantação">Implantação</option>
-            <option value="Teste">Teste</option>
-            <option value="Manutenção">Manutenção</option>
-          </select>
-        </div>
-        <div>
-          <label htmlFor="id_sistema">ID do Sistema:</label>
-          <input
-            type="text" // Usando um campo de texto para permitir que o usuário digite o ID do sistema
-            id="id_sistema"
-            name="id_sistema"
-            value={novoChamado.id_sistema}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <button type="submit">Adicionar Chamado</button>
-        </div>
-      </form>
+    <div className="container">
+      <h1>Gerenciar Chamados</h1>
+      <div className='info-box'>
+        <h2 style={{ margin: 0 }}>Bem-vindo, Usuário!</h2>
+        <p>Esta é a área de chamados. Aqui você pode abrir um novo chamado ou verificar os chamados já abertos.</p>
+      </div>
+      {/* Botão para exibir ou esconder o formulário */}
+      {!exibirFormulario && (
+        <button onClick={() => setExibirFormulario(true)}>Abrir Novo Chamado</button>
+      )}
+      
+      {/* Formulário visível apenas quando exibirFormulario for true */}
+      {exibirFormulario && (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="titulo_chamado">Título:</label>
+            <input
+              type="text"
+              id="titulo_chamado"
+              name="titulo_chamado"
+              value={novoChamado.titulo_chamado}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="descricao_chamado">Descrição:</label>
+            <input
+              type="text"
+              id="descricao_chamado"
+              name="descricao_chamado"
+              value={novoChamado.descricao_chamado}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="tipo_chamado">Tipo:</label>
+            <select
+              id="tipo_chamado"
+              name="tipo_chamado"
+              value={novoChamado.tipo_chamado}
+              onChange={handleChange}
+              required
+            >
+              <option value="" disabled>Selecione um tipo</option>
+              <option value="Implantação">Implantação</option>
+              <option value="Teste">Teste</option>
+              <option value="Manutenção">Manutenção</option>
+            </select>
+          </div>
+          <div>
+            <label htmlFor="id_sistema">ID do Sistema:</label>
+            <input
+              type="text"
+              id="id_sistema"
+              name="id_sistema"
+              value={novoChamado.id_sistema}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <button type="submit">Adicionar Chamado</button>
+            <button type="button" onClick={() => setExibirFormulario(false)}>Cancelar</button>
+          </div>
+        </form>
+      )}
       
       <h1>Chamados Abertos</h1>
       <table>
         <thead>
           <tr>
-            
             <th>Título</th>
             <th>Status</th>
             <th>Descrição</th>
@@ -119,8 +132,7 @@ const CriarChamado = () => {
         <tbody>
           {chamados.length > 0 ? (
             chamados.map((chamado) => (
-              <tr key={chamado.id_chamado}> {/* Aqui está a correção */}
-                
+              <tr key={chamado.id_chamado}>
                 <td>{chamado.titulo_chamado}</td>
                 <td>{chamado.status_chamado}</td>
                 <td>{chamado.descricao_chamado}</td>

@@ -47,9 +47,8 @@ body {
 }
 
 html, body {
-  height: 100%;
+  padding-top: 50px;
   margin: 0;
-  padding: 0;
   display: flex;
   flex-direction: column;
 }
@@ -80,14 +79,21 @@ h1, h2, h3, h4 {
 .app-wrapper {
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Altura da viewport */
-  padding: 60px;
+  align-items: center;
+  max-width: 100%;
+  padding-top: 30px;
+  padding-left: 70px;
+  padding-right: 70px;
 }
 
 .app-body {
-  height: 100vh;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
   display: flex;
   flex: 1;
+  padding-bottom: 40px;
+
 }
 
 /* Para o App.jsx */
@@ -96,7 +102,6 @@ h1, h2, h3, h4 {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  min-height: 100vh; /* Garante que ocupe toda a altura da viewport */
   padding: 0; /* Remove o padding que causava espaçamento indesejado */
   padding-top: 50px;
   flex-grow: 1;
@@ -120,6 +125,19 @@ h1, h2, h3, h4 {
   flex-grow: 1;
 }
 
+.info-box {
+  color: rgba(255, 255, 255, 0.5); /* Texto escuro para boa legibilidade */
+  border: 1px solid rgba(255, 255, 255, 0); /* Borda suave */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding-left: 10px; /* Espaçamento interno */
+  padding-right: 10px;
+  align-items: center;
+  font-size: 12px; /* Texto pequeno */
+  line-height: 1.5; /* Melhor legibilidade */
+  margin-bottom: 3px;
+}
+
+
 /* Estilo para formulários */
 form {
   display: flex;
@@ -132,7 +150,6 @@ form {
   align-items: center;
   width: 100%;
   max-width: 300px;
-  margin: 0 auto;
 }
 
 /* Estilo para rótulos de input */
@@ -153,7 +170,7 @@ select {
   border: 1px solid #444;
   border-radius: 5px;
   font-size: 16px;
-  background-color: #333;
+  background-color: #1a1a1a;
   color: #ffffff;
   transition: border 0.3s;
 }
@@ -167,12 +184,14 @@ section {
   border-radius: 8px; /* Bordas arredondadas, pode ser ajustado */
   box-sizing: border-box; /* Garante que o padding não afete a largura total */
   overflow: auto; /* Garante que o conteúdo não ultrapasse a área da seção, com rolagem se necessário */
+  color: #1a1a1a;
 }
+
 
 /* Estilização adicional para o conteúdo dentro da seção */
 section p {
   font-size: 16px; /* Ajuste do tamanho da fonte do texto */
-  color: #333; /* Cor do texto */
+  color: #1a1a1a; /* Cor do texto */
 }
 
 
@@ -229,7 +248,7 @@ li {
 /* Estilo para a tabela */
 table {
   color: #000;
-  width: 100%;
+  width: 90%;
   border-collapse: collapse;
   margin: 20px 0;
   background-color: #ffffff;
@@ -242,7 +261,7 @@ th, td {
 }
 
 th {
-  background-color: #333;
+  background-color: #1a1a1a;
   color: #ffffff;
 }
 
@@ -256,7 +275,7 @@ tr:hover {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #333;
+  background-color: #1a1a1a;
   padding: 1rem;
   z-index: 1000;
 }
@@ -266,7 +285,7 @@ tr:hover {
   font-weight: bold; /* Deixa o nome mais destacado */
   line-height: 1; /* Garante que a altura da linha não aumente o navbar */
   margin: 0; /* Remove margens adicionais */
-  padding-bottom: 5px; /* Remove qualquer preenchimento extra */
+  padding-bottom: 5px; 
 }
 
 .navbar-icon {
@@ -305,6 +324,7 @@ tr:hover {
   justify-content: space-between;
   gap: 20px;
   flex-wrap: wrap;
+  border-radius: 30px;
   padding: 20px;
   box-shadow: 2px 2px 20px rgba(20, 1, 2, 0.5);
   background-color: #1a1a1a;
@@ -323,7 +343,7 @@ tr:hover {
   min-width: 280px;
   max-width: 300px;
   padding: 20px;
-  background-color: #333;
+  background-color: #1a1a1a;
   color: #f1f1f1;
   border: 1px solid #444;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -331,10 +351,6 @@ tr:hover {
   box-sizing: border-box; /* Garante que padding não expanda a div */
 
   
-}
-
-.sidetoside form {
-  width: 200px;
 }
 
 /* Estilizando a barra de rolagem (funciona em WebKit: Chrome, Safari) */
@@ -419,7 +435,7 @@ button:hover {
   font-family: 'Montserrat', sans-serif; /* Altera para uma fonte moderna */
   justify-content: space-between; /* Alinha os itens à esquerda e à direita */
   align-items: center; /* Alinha os itens verticalmente no centro */
-  background-color: #333; /* Cor de fundo */
+  background-color: #1a1a1a; /* Cor de fundo */
   padding: 10px 20px; /* Espaçamento interno */
   color: white; /* Cor do texto */
   font-size: 24px; /* Tamanho do texto */
@@ -436,9 +452,8 @@ button:hover {
   padding-top: 5px;
   padding-right: 2px;
   gap: 8px; /* Espaço entre o ícone e o texto */
-  background-color: #007bff; /* Cor de fundo azul */
   border-radius: 8px; /* Suaviza os cantos, ajuste para o formato desejado */
-  color: #333; /* Texto em branco para contraste */
+  color: #007bff; /* Texto em branco para contraste */
   font-family: 'Montserrat', sans-serif; /* Fonte moderna */
   font-size: 24px; /* Tamanho do texto */
   font-weight: bold; /* Deixa o nome mais destacado */
@@ -448,6 +463,7 @@ button:hover {
 .navbar-logo img {
   width: 24px; /* Ajuste o tamanho do ícone */
   height: 24px;
+  background-color: white;
 }
 
 /* Estilo para os botões de Login e Cadastrar */
@@ -476,12 +492,10 @@ button:hover {
 /* Sidebar estará sempre à esquerda */
 /* Sidebar */
 .sidebar {
-  height: 200px; /* Full height */
   width: 60px; /* Inicialmente com largura pequena */
   position: fixed; /* Fixo à esquerda */
-  top: 50%;
   left: 0;
-  background-color: #333; /* Cor de fundo */
+  background-color: #1a1a1a; /* Cor de fundo */
   padding-top: 20px;
   padding-bottom: 20px; /* Espaço embaixo também */
   display: flex;
@@ -538,11 +552,13 @@ button:hover {
 }
 
 footer {
-  background-color: #333;
-  color: white;
+  background-color: #1a1a1a;
+  color: rgba(255, 255, 255, 0.5);
   text-align: center;
-  padding: 20px;
+  padding: 5px;
   margin-top: auto; /* Garante que o footer fique no fundo */
+  position: relative;
+  bottom: 0;
 }
 
 .footer-bottom p {

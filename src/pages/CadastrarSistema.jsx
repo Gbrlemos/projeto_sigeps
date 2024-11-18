@@ -47,6 +47,9 @@ const CadastrarSistema = () => {
         </div>
         <div>
           <label htmlFor="tipo_sistema">Tipo do Sistema:</label>
+          <div className="info-box">
+            Ex: Streaming, Bancario, E-commerce...
+          </div>
           <input
             type="text"
             id="tipo_sistema"

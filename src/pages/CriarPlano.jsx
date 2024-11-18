@@ -1,9 +1,9 @@
-// src/pages/CriarPlano.jsx
 import React, { useState, useEffect } from 'react';
-import { addPlano, getRecursos, addAtividade, addRecurso } from '../service/api';
+import { addPlano, getRecursos, addAtividade, addRecurso, addPlanoRecurso } from '../service/api'; // Importando a função addPlanoRecurso
 import { useNavigate } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { FaTrash } from 'react-icons/fa'; // Importando o ícone de lixeira
 
 const CriarPlano = () => {
   const navigate = useNavigate();
@@ -17,7 +17,6 @@ const CriarPlano = () => {
   const [recursos, setRecursos] = useState([]);
   const [recursosSelecionados, setRecursosSelecionados] = useState([]);
 
-  // Carrega a lista de recursos ao montar o componente
   useEffect(() => {
     fetchRecursos();
   }, []);
@@ -25,7 +24,7 @@ const CriarPlano = () => {
   const fetchRecursos = async () => {
     try {
       const data = await getRecursos();
-      setRecursos(data.map(recurso => ({ ...recurso, quantidadeReservada: 0 }))); // Adiciona campo para quantidade reservada
+      setRecursos(data.map(recurso => ({ ...recurso, quantidadeReservada: 0 })));
     } catch (error) {
       console.error("Erro ao buscar recursos", error);
     }
@@ -33,8 +32,6 @@ const CriarPlano = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    // Cria o objeto do plano
     const novoPlano = {
       nome_plano: nomePlano,
       descricao_plano: descricaoPlano,
@@ -42,26 +39,27 @@ const CriarPlano = () => {
       data_fim: dataFim,
       status_plano: statusPlano,
     };
-    
+
     try {
       const planoCriado = await addPlano(novoPlano); 
       const planoId = planoCriado.id_plano;
 
-      // Adiciona atividades ao plano
       const atividadesComIdPlano = atividades.map(atividade => ({
         ...atividade,
         id_plano: planoId,
       }));
       await Promise.all(atividadesComIdPlano.map(addAtividade));
 
-      // Envia recursos selecionados com a quantidade reservada
+      // Reservar recursos e adicionar plano_recurso
       await Promise.all(
         recursosSelecionados.map(async recurso => {
-          await addRecurso({
-            ...recurso,
-            quantidade_disponivel: recurso.quantidade_disponivel - recurso.quantidadeReservada,
-            id_plano: planoId,
-          });
+          // Adicionando a relação plano_recurso
+          if (recurso.quantidadeReservada > 0) {
+            await addPlanoRecurso({
+              id_plano: planoId,
+              id_recurso: recurso.id_recurso,
+            });
+          }
         })
       );
 
@@ -82,12 +80,16 @@ const CriarPlano = () => {
     }
   };
 
+  const handleDeleteAtividade = (index) => {
+    const atividadesAtualizadas = atividades.filter((_, i) => i !== index);
+    setAtividades(atividadesAtualizadas);
+  };
+
   const handleRecursoSelecionado = (index, quantidade) => {
     const novosRecursos = [...recursos];
     novosRecursos[index].quantidadeReservada = quantidade;
     setRecursos(novosRecursos);
     
-    // Filtra recursos com quantidade reservada maior que 0 para enviar ao backend
     setRecursosSelecionados(novosRecursos.filter(recurso => recurso.quantidadeReservada > 0));
   };
 
@@ -95,15 +97,16 @@ const CriarPlano = () => {
     <div className="page-container">
       <div className="sidetoside">
         <h2>Adicionar Atividade</h2>
+        <div className="info-box">
+          Adicione atividades à lista de atividades antes de criar o plano. Adiciona e remova quantas quiser.
+        </div>
         <form onSubmit={(e) => e.preventDefault()}>
           <div>
             <label>Descrição da Atividade:</label>
             <input
               type="text"
               value={novaAtividade.descricao}
-              onChange={(e) =>
-                setNovaAtividade({ ...novaAtividade, descricao: e.target.value })
-              }
+              onChange={(e) => setNovaAtividade({ ...novaAtividade, descricao: e.target.value })}
               required
             />
           </div>
@@ -111,9 +114,7 @@ const CriarPlano = () => {
             <label>Data de Início:</label>
             <DatePicker
               selected={novaAtividade.dataInicio}
-              onChange={(date) =>
-                setNovaAtividade({ ...novaAtividade, dataInicio: date })
-              }
+              onChange={(date) => setNovaAtividade({ ...novaAtividade, dataInicio: date })}
               dateFormat="dd/MM/yyyy"
               required
             />
@@ -122,9 +123,7 @@ const CriarPlano = () => {
             <label>Data de Fim:</label>
             <DatePicker
               selected={novaAtividade.dataFim}
-              onChange={(date) =>
-                setNovaAtividade({ ...novaAtividade, dataFim: date })
-              }
+              onChange={(date) => setNovaAtividade({ ...novaAtividade, dataFim: date })}
               dateFormat="dd/MM/yyyy"
               required
             />
@@ -133,8 +132,9 @@ const CriarPlano = () => {
             Adicionar Atividade
           </button>
         </form>
-              </div>
-              <div className='sidetoside'>
+      </div>
+
+      <div className="sidetoside">
         <h3>Lista de Atividades</h3>
         <ul>
           {atividades.map((atividade, index) => (
@@ -142,6 +142,9 @@ const CriarPlano = () => {
               <strong>Descrição:</strong> {atividade.descricao} | 
               <strong> Início:</strong> {atividade.dataInicio.toLocaleDateString()} | 
               <strong> Fim:</strong> {atividade.dataFim.toLocaleDateString()}
+              <button onClick={() => handleDeleteAtividade(index)} style={{ marginLeft: '10px', color: 'white' }}>
+                <FaTrash />
+              </button>
             </li>
           ))}
         </ul>
@@ -153,7 +156,7 @@ const CriarPlano = () => {
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Quantidade Disponível</th>
+              <th>Estoque</th>
               <th>Quantidade a Reservar</th>
             </tr>
           </thead>
@@ -169,9 +172,7 @@ const CriarPlano = () => {
                       min="0"
                       max={recurso.quantidade_disponivel}
                       value={recurso.quantidadeReservada}
-                      onChange={(e) =>
-                        handleRecursoSelecionado(index, Number(e.target.value))
-                      }
+                      onChange={(e) => handleRecursoSelecionado(index, Number(e.target.value))}
                     />
                   </td>
                 </tr>
