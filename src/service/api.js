@@ -40,6 +40,7 @@ const update = async (resource, id, data) => {
 // Função genérica para deletar um recurso
 const remove = async (resource, id) => {
     try {
+
         const response = await axios.delete(`${getApiUrl(resource)}/${id}`);
         return response.data;
     } catch (error) {
