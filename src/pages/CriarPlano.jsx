@@ -111,16 +111,7 @@ const CriarPlano = () => {
 
   const handleFinalizarPlanejamento = async () => {
     try {
-      const atividadesComIdPlano = atividades.map(atividade => ({
-        descricao_atividade: atividade.descricao_atividade,
-        inicio_atividade: atividade.inicio_atividade.toISOString().split('T')[0],
-        fim_atividade: atividade.fim_atividade.toISOString().split('T')[0],
-        status_atividade: atividade.status_atividade,
-        id_plano: idPlanoCriado,
-      }));
-
-      await Promise.all(atividadesComIdPlano.map(addAtividade));
-
+      
       await Promise.all(
         recursosSelecionados.map(async recurso => {
           if (recurso.quantidadeReservada > 0) {

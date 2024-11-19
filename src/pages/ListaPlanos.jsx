@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getPlanos } from '../service/api'; // Certifique-se de que existe a função getPlanos
+import { getPlanos } from '../service/api'; 
 import { useNavigate } from 'react-router-dom';
 
 const ListaPlanos = () => {
@@ -24,7 +24,7 @@ const ListaPlanos = () => {
 
   // Função para redirecionar para a página de detalhes do plano
   const handleDetalhesPlano = (idPlano) => {
-    navigate(`/detalhesplano/${idPlano}`);
+    navigate(`/planodetalhado/${idPlano}`);
   };
 
   return (

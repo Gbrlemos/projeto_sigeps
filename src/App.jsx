@@ -13,6 +13,7 @@ import ListaChamados from './pages/ListaChamados';
 import ListaPlanos from './pages/ListaPlanos';
 import Sidebar from './pages/Sidebar';
 import CadastrarUsuario from './pages/CadastrarUsuario';
+import PlanoDetalhado from './pages/PlanoDetalhado';
 
 const App = () => {
   return (
@@ -34,6 +35,7 @@ const App = () => {
             <Route path="/criarplano" element={<CriarPlano />} />
             <Route path="/criarplano/:id" element={<CriarPlano />} />
             <Route path="/cadastrarrecurso" element={<CadastrarRecurso />} />
+            <Route path="/planodetalhado/:idPlano" element={<PlanoDetalhado />} />
             {/* Outras rotas aqui */}
           </Routes>
         </div>
