@@ -14,21 +14,6 @@ const Sidebar = () => {
         <span>Desenvolvedores</span>
       </Link>
 
-      <Link to="/contact" className="sidebar-btn">
-        <i className="fas fa-envelope"></i>
-        <span>Contato</span>
-      </Link>
-
-      <Link to="/login" className="sidebar-btn">
-        <i className="fas fa-sign-in-alt"></i>
-        <span>Login</span>
-      </Link>
-
-      <Link to="/cadastrarusuario" className="sidebar-btn">
-        <i className="fas fa-user-plus"></i>
-        <span>Cadastrar Usuário</span>
-      </Link>
-
       <Link to="/criarchamado" className="sidebar-btn">
         <i className="fas fa-plus-circle"></i>
         <span>Criar Chamado</span>

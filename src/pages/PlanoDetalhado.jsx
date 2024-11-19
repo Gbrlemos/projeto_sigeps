@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { getPlanos, getAtividades, getPlanoRecursos } from '../service/api'; // Importando a função getPlanoRecursos
+import { getPlanos, getAtividades, getPlanoRecursos, getRecursos } from '../service/api'; 
 
 const PlanoDetalhado = () => {
   const { idPlano } = useParams(); // Obtém o ID do plano da URL
   const [plano, setPlano] = useState(null);
   const [atividades, setAtividades] = useState([]);
+  const [planoRecursos, setPlanoRecursos] = useState([]);
   const [recursos, setRecursos] = useState([]);
   const navigate = useNavigate();
 
@@ -37,11 +38,17 @@ const PlanoDetalhado = () => {
         setAtividades(atividadesFiltradas);
 
         // Buscar os recursos vinculados ao plano via plano_recurso
-        const recursosData = await getPlanoRecursos(idPlano);
+        const planoRecursoData = await getPlanoRecursos(idPlano);
+        setPlanoRecursos(planoRecursoData); // Adiciona os plano_recurso retornados
+
+        // Busca todos os recursos para apresentar depois pelo id_planorecurso
+        const recursosData = await getRecursos();
         setRecursos(recursosData); // Adiciona os recursos retornados
       } catch (error) {
         console.error('Erro ao buscar detalhes do plano:', error);
       }
+
+
     };
 
     fetchPlanoDetalhado();
@@ -51,7 +58,7 @@ const PlanoDetalhado = () => {
     <div className="container">
       <h1>Detalhes do Plano</h1>
       {plano ? (
-        <div className="plano-detalhes">
+        <><div className="plano-detalhes">
           <h2>{plano.nome_plano}</h2>
           <p>
             <strong>Status:</strong> {plano.status_plano}
@@ -63,34 +70,57 @@ const PlanoDetalhado = () => {
             <strong>Data de Criação:</strong>{' '}
             {new Date(plano.data_criacao_plano).toLocaleDateString()}
           </p>
-
-          <h3>Atividades</h3>
-          {atividades.length > 0 ? (
-            <ul>
-              {atividades.map((atividade) => (
-                <li key={atividade.id_atividade}>
-                  {atividade.descricao_atividade} - {atividade.status_atividade}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Não há atividades vinculadas a este plano.</p>
-          )}
-
-          <h3>Recursos</h3>
-          {recursos.length > 0 ? (
-            <ul>
-              {recursos.map((recurso) => (
-                <li key={recurso.id_planorecurso}>
-                  {recurso.nome_recurso} - {recurso.quantidade_disponivel_recurso}{' '}
-                  disponível(is)
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>Não há recursos vinculados a este plano.</p>
-          )}
+          <p>
+            <strong>Período:</strong> {' '}
+            {new Date(plano.data_inicio).toLocaleDateString()}
+            <strong> à</strong> {' '}
+            {new Date(plano.data_fim).toLocaleDateString()}
+          </p>
         </div>
+        <div className="plano-detalhes">
+            <h3>Atividades</h3>
+            {atividades.length > 0 ? (
+              <ul>
+                {atividades.map((atividade) => (
+                  <li key={atividade.id_atividade}>
+                    {atividade.descricao_atividade} - {atividade.status_atividade}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>Não há atividades vinculadas a este plano.</p>
+            )}
+        </div>
+        <div className='plano-detalhes'>      
+        <h3>Recursos</h3>
+          {planoRecursos.length > 0 ? (
+            <ul>
+              {planoRecursos.map((planoRecurso) => {
+                // Encontre o recurso correspondente pelo ID
+                const recursoDetalhado = recursos.find(
+                  (recurso) => recurso.id_recurso === planoRecurso.id_recurso
+                );
+
+                // Exiba os detalhes apenas se o recurso foi encontrado
+                if (recursoDetalhado) {
+                  return (
+                    <li key={planoRecurso.id_planorecurso}>
+                      {recursoDetalhado.nome_recurso} - {recursoDetalhado.quantidade_disponivel} disponível(is)
+                    </li>
+                  );
+                } else {
+                  return (
+                    <li key={planoRecurso.id_planorecurso}>
+                      Recurso não encontrado para este plano.
+                    </li>
+                  );
+                }
+              })}
+              </ul>
+            ) : (
+              <p>Não há recursos vinculados a este plano.</p>
+            )}
+          </div></>
       ) : (
         <p>Carregando detalhes do plano...</p>
       )}

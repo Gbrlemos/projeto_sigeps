@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { addChamado, getChamados } from '../service/api'; // Certifique-se de que getSistemas está corretamente importado
+import { useNavigate } from 'react-router-dom'; // Importa o hook useNavigate
+import { addChamado, getChamados } from '../service/api';
 
 const CriarChamado = () => {
   const [chamados, setChamados] = useState([]);
@@ -13,6 +14,8 @@ const CriarChamado = () => {
     status_chamado: 'Aberto', // Status padrão definido como "Aberto"
     id_sistema: '', // Adicionando o id_sistema
   });
+
+  const navigate = useNavigate(); // Hook para navegar entre páginas
 
   // Função para buscar chamados da API
   useEffect(() => {
@@ -60,7 +63,14 @@ const CriarChamado = () => {
       {!exibirFormulario && (
         <button onClick={() => setExibirFormulario(true)}>Abrir Novo Chamado</button>
       )}
-      
+
+      {/* Botão para redirecionar para a página de cadastro de sistema */}
+      {!exibirFormulario && (
+        <button onClick={() => navigate('/CadastrarSistema')} style={{ marginLeft: '10px' }}>
+          Cadastrar Sistema
+        </button>
+      )}
+
       {/* Formulário visível apenas quando exibirFormulario for true */}
       {exibirFormulario && (
         <form onSubmit={handleSubmit}>
@@ -118,7 +128,7 @@ const CriarChamado = () => {
           </div>
         </form>
       )}
-      
+
       <h1>Chamados Abertos</h1>
       <table>
         <thead>

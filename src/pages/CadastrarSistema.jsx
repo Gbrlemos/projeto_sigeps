@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { addSistema } from '../service/api'; // Verifique se a importação está correta
+import React, { useState, useEffect } from 'react';
+import { addSistema, getSistemas } from '../service/api'; // Certifique-se de que as funções estão corretas
 
 const CadastrarSistema = () => {
   // Estado para armazenar o novo sistema
@@ -8,18 +8,39 @@ const CadastrarSistema = () => {
     tipo_sistema: '',
   });
 
+  // Estado para armazenar a lista de sistemas
+  const [sistemas, setSistemas] = useState([]);
+
+  // Função para buscar sistemas da API
+  useEffect(() => {
+    const fetchSistemas = async () => {
+      try {
+        const data = await getSistemas(); // Busca os sistemas cadastrados
+        setSistemas(data);
+        console.log('Sistemas recebidos:', data);
+      } catch (error) {
+        console.error('Erro ao buscar sistemas:', error);
+      }
+    };
+
+    fetchSistemas();
+  }, []);
+
   // Função para lidar com o envio do formulário
   const handleSubmit = async (event) => {
     event.preventDefault(); // Previne o comportamento padrão do submit
     try {
       // Chama a API para adicionar o sistema
       const sistemaAdicionado = await addSistema(novoSistema);
-      console.log("Sistema adicionado:", sistemaAdicionado);
-      
+      console.log('Sistema adicionado:', sistemaAdicionado);
+
+      // Atualiza a lista de sistemas
+      setSistemas([...sistemas, sistemaAdicionado]);
+
       // Limpa o formulário após a submissão
-      setNovoSistema({ nome_sistema: '', tipo_sistema: '', versao_sistema: '1.0' });
+      setNovoSistema({ nome_sistema: '', tipo_sistema: '' });
     } catch (error) {
-      console.error("Erro ao adicionar sistema:", error);
+      console.error('Erro ao adicionar sistema:', error);
     }
   };
 
@@ -30,7 +51,7 @@ const CadastrarSistema = () => {
   };
 
   return (
-    <div className='container'>
+    <div className="container">
       <h1>Cadastrar Novo Sistema</h1>
       {/* Formulário para adicionar novo sistema */}
       <form onSubmit={handleSubmit}>
@@ -47,9 +68,7 @@ const CadastrarSistema = () => {
         </div>
         <div>
           <label htmlFor="tipo_sistema">Tipo do Sistema:</label>
-          <div className="info-box">
-            Ex: Streaming, Bancario, E-commerce...
-          </div>
+          <div className="info-box">Ex: Streaming, Bancário, E-commerce...</div>
           <input
             type="text"
             id="tipo_sistema"
@@ -63,6 +82,31 @@ const CadastrarSistema = () => {
           <button type="submit">Adicionar Sistema</button>
         </div>
       </form>
+
+      <h2>Sistemas Cadastrados</h2>
+      {/* Tabela de sistemas cadastrados */}
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sistemas.length > 0 ? (
+            sistemas.map((sistema) => (
+              <tr key={sistema.id_sistema}>
+                <td>{sistema.nome_sistema}</td>
+                <td>{sistema.tipo_sistema}</td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="2">Nenhum sistema encontrado.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 };

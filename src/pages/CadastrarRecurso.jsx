@@ -49,7 +49,7 @@ const CadastrarRecurso = () => {
 
   return (
     <div className='container'>
-        <div>
+        <div className='container'>
       <h2>Cadastrar Novo Recurso</h2>
       <form onSubmit={handleSubmit}>
         <div>
@@ -73,7 +73,7 @@ const CadastrarRecurso = () => {
         <button type="submit">Cadastrar Recurso</button>
       </form>
       </div>
-      <div>
+      <div className='container'>
           <h2>Recursos Disponíveis</h2>
           <table>
               <thead>

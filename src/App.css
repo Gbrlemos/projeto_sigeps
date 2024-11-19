@@ -122,6 +122,17 @@ h1, h2, h3, h4 {
   height: auto;
   padding-bottom: 40px;
   flex-grow: 1;
+  margin-top: 5px;
+}
+
+/* Para os componentes detalhados no plano detalhe */
+.plano-detalhes{
+  align-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 8px;
+  margin: 20px;
+  width: 100%;
+  padding: 10px;
 }
 
 .info-box {
@@ -191,6 +202,10 @@ section {
 section p {
   font-size: 16px; /* Ajuste do tamanho da fonte do texto */
   color: #1a1a1a; /* Cor do texto */
+}
+
+section h2 {
+  color: #1a1a1a;
 }
 
 
@@ -493,6 +508,7 @@ button:hover {
 .sidebar {
   width: 60px; /* Inicialmente com largura pequena */
   position: fixed; /* Fixo à esquerda */
+  margin-top: 30px;
   left: 0;
   background-color: #1a1a1a; /* Cor de fundo */
   padding-top: 20px;

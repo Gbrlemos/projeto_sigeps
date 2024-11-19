@@ -7,10 +7,10 @@ const Developers = () => {
       <section>
         <h2>Sobre a Equipe</h2>
         <p>
-          Somos uma equipe apaixonada por tecnologia, com foco em criar soluções
-          eficientes e inovadoras. Este projeto foi desenvolvido com o objetivo
-          de facilitar a gestão de sistemas, promovendo integração e agilidade
-          nos processos.
+        Somos Ana Carolina, Gabriel Lemos e Rodrigo Afonso, alunos do curso 
+        de Desenvolvimento de Sistemas do SENAI Lauro de Freitas. Este projeto 
+        4foi criado como parte das disciplinas de Teste, Manutenção e Implantação 
+        de Sistemas, sob a orientação do professor Jorge.
         </p>
         <h2>Sobre o Projeto</h2>
         <p>
